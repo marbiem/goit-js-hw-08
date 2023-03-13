@@ -6,12 +6,21 @@ const getRandomHexColor = () => {
   return `#${Math.floor(Math.random() * 16777215).toString(16)}`;
 };
 
-const changeColor = () => {
-  console.log('hello');
+const setBodyBackgroundColor = () => {
   body.style.backgroundColor = getRandomHexColor();
 };
 
-const stopChangeColor = () => {};
+let changeColorInterval;
 
-startButton.addEventListener('click', changeColor);
+const startChangeColor = () => {
+  changeColorInterval = setInterval(setBodyBackgroundColor, 1000);
+  startButton.setAttribute('disabled', true);
+};
+
+const stopChangeColor = () => {
+  clearInterval(changeColorInterval);
+  startButton.removeAttribute('disabled');
+};
+
+startButton.addEventListener('click', startChangeColor);
 stopButton.addEventListener('click', stopChangeColor);
